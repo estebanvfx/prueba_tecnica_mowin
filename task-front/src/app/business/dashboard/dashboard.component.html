@@ -1,0 +1,23 @@
+<p class="text-xl font-bold text-white">All tasks</p>
+  <div class="grid xl:grid-cols-4 lg:grid-cols-3 gap-4 md:grid-cols-2 grid-cols-1 ">
+    <!--  ACA EMPIZAN LOS CARD DE LOS TASKS -->
+    @for (task of tasks; track $index) {
+      <app-card-task [title]="task.title" [description]="task.description" [expiration_date]="task.expiration_date" [state]="task.state" [id_task]="task.id_task"
+      (onTaskDeleted)="deleteTask($event)"
+      (onTaskUpdated)="editTask($event)"/>
+    }
+
+    <button (click)="toggleModal()" class="p-4 mt-6 group transition-all bg-[#1d1d1d] border-dashed border-2 border-[#424242] hover:bg-[#1a1a1a] min-w-56 min-h-52 max-w-80 rounded-lg text-wrap shadow-md flex flex-col items-center justify-center text-white/90">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 group-hover:scale-110 transition-all">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+      Add new task
+    </button>
+    <app-modal
+    [(isModalOpen)]="isModalOpen"
+    [task]="selectedTask!"
+    [isEditing]="isEditing"
+    (isModalOpenChange)="isModalOpen = $event"
+    (saveTask)="onSaveTask($event)"
+    />
+  </div>

@@ -1,0 +1,59 @@
+<main class="bg-white flex justify-center items-center h-screen">
+  <app-toast
+    [show]="showToast"
+    title="Cuenta creada con éxito 🎉"
+    message="En breve serás redirigido a la página de inicio de session"
+    (closed)="showToast = false">
+  </app-toast>
+
+  <div class=" p-5 text-[#191919] py-11 min-w-96 max-w-96">
+    <div class="w-full">
+      <h1 class="font-bold text-4xl mb-3">Sing up</h1>
+      <p class="text-[#3d3d3d] mb-8 font-semibold">Join now to create tasks 🚀</p>
+    </div>
+    <!-- form register -->
+    <form (ngSubmit)="register()" #registerForm="ngForm">
+      <div class="mb-5">
+        <label for="text" class="block text-gray-700 text-sm font-bold">Nombre <span class="text-red-500">*</span></label>
+        <input type="text" [(ngModel)]="name" required name="name" id="name"  #nameInput="ngModel" class="w-full px-4 py-3 mt-2 focus:mt-1.5 border focus:border-2 border-gray-300 rounded-md focus:outline-none focus:border-black font-semibold" placeholder="Pepito Pino">
+        @if (nameInput.invalid && (nameInput.touched || registerForm.submitted)) {
+          @if (nameInput.errors?.['required']) {
+            <span class="font-bold text-sm text-red-600">El nombre es requerido</span>
+          }
+        }
+      </div>
+      <div class="mb-5">
+        <label for="email" class="block text-gray-700 text-sm font-bold">Email <span class="text-red-500">*</span></label>
+        <input type="email" [(ngModel)]="email" required email name="email" #emailInput="ngModel" id="email" class="w-full px-4 py-3 mt-2 focus:mt-1.5 border focus:border-2 border-gray-300 rounded-md focus:outline-none focus:border-black font-semibold" placeholder="name@example.com">
+        @if (emailInput.invalid && (emailInput.touched || registerForm.submitted)) {
+          @if (emailInput.errors?.['required']) {
+            <span class="font-bold text-sm text-red-600">El email es requerido</span>
+          }
+          @if(emailInput.errors?.['email']){
+            <span class="font-bold text-sm text-red-600">Email inválido</span>
+          }
+        }
+      </div>
+      <div class="mb-5">
+        <label for="password" class="block text-gray-700 text-sm font-bold">Password <span class="text-red-500">*</span></label>
+        <input type="password" required [(ngModel)]="password" name="password" id="password" #passwordInput="ngModel" class="w-full px-4 py-3 mt-2 focus:mt-1.5 border focus:border-2 border-gray-300 rounded-md focus:outline-none focus:border-black font-semibold" placeholder="Password">
+        @if (passwordInput.invalid && (passwordInput.touched || registerForm.submitted)) {
+          @if (passwordInput.errors?.['required']) {
+            <span class="font-bold text-sm text-red-600">La contraseña es requerida</span>
+          }
+        }
+      </div>
+      <button type="submit" class="bg-[#191919] w-full rounded-xl focus:ring-offset-white group inline-flex items-center justify-center border-2 outline-none transition-all duration-200 ease-in-out hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-80 relative leading-none py-5 px-6 font-bold text-white border-white hover:text-white hover:bg-black">
+        <span class="flex items-center transition-transform duration-500 group-hover:-translate-x-2">
+          Create account
+          <svg class="h-4 ml-2 transform transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 1 1-1.06 1.06l-6.22-6.22V21a.75.75 0 0 1-1.5 0V4.81l-6.22 6.22a.75.75 0 1 1-1.06-1.06l7.5-7.5Z" clip-rule="evenodd"></path>
+          </svg>
+        </span>
+      </button>
+    </form>
+    <div class="w-full items-center justify-center flex mt-4">
+      <p class="text-[#3d3d3d] mb-8 font-semibold">already have an account? <a routerLink="/login" class="text-brand-500 font-bold hover:text-black transition-colors cursor-pointer">Login here</a></p>
+    </div>
+  </div>
+</main>
